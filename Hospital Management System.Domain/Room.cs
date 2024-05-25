@@ -11,5 +11,10 @@ namespace Hospital_Management_System.Domain
         public int Id { get; set; }
         public int RoomNumber { get; set;}
         public string Location { get; set; }
+        public int HospitalId { get; set; }
+
+        public ICollection<Patient> Patients { get; set; }
+        public Hospital Hospitals { get; set; }
+
     }
 }

@@ -9,5 +9,11 @@ namespace Hospital_Management_System.Domain
     public class Doctor: Employee
     {
        public string Specialization { get; set; }
+       public Guid departmentId{ get; set; }
+
+
+       public Department Departments { get; set; }
+       public ICollection<Patient> Patients { get; set; }
+
     }
 }

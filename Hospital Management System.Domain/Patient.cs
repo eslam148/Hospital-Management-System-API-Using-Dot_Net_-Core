@@ -14,5 +14,19 @@ namespace Hospital_Management_System.Domain
         public DateTime Discharge { get; set; }
         public string PatientType { get; set; }
 
+        public string DoctorId { get; set; }
+        public int RoomId { get; set; }
+
+
+        public Room Rooms { get; set; }
+        public Doctor Doctors { get; set; }
+
+        public ICollection<Pharmacy> Pharmacy { get; set; }
+        public ICollection<Nurse>  Nurse { get; set; }
+        public ICollection<Diagnoses> Diagnoses { get; set; }
+        public ICollection<Laboratory> Laboratory { get; set; }
+
+
+
     }
 }

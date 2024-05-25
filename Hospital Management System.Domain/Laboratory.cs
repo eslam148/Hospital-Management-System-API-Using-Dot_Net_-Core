@@ -12,5 +12,9 @@ namespace Hospital_Management_System.Domain
         public string name { get; set; }
         public string NormalRang { get; set; }
         public string result { get; set; }
+
+        public Guid PatientId { get; set; }
+        public Patient Patients { get; set; }
+
     }
 }

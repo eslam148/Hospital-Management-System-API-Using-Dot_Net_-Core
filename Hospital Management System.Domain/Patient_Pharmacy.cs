@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 
 namespace Hospital_Management_System.Domain
 {
-    public class Diagnoses
+    public class Patient_Pharmacy
     {
-        public Guid id { get; set; }
-        public string info { get; set; }
-        public DateTime DateTime { get; set; }
+        //public Guid id { get; set; }
 
         public Guid PatientId { get; set; }
-        public Patient Patients { get; set; }
+        public Guid PharmacyId { get; set; }
+
+
+        //public Patient Patients { get; set; }
+        //public Pharmacy Pharmacy { get; set; }
+
     }
 }

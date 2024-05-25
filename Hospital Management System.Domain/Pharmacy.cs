@@ -8,8 +8,10 @@ namespace Hospital_Management_System.Domain
 {
     public class Pharmacy
     {
-       public Guid Id { get; set; }
-       public string Name { get; set; }
-       public decimal Amount { get; set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public decimal Amount { get; set; }
+
+        public ICollection<Patient> Patient { get; set; }
     }
 }

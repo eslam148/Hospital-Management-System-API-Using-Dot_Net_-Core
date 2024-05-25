@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hospital_Management_System.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240524222017_init2")]
-    partial class init2
+    [Migration("20240525222932_Complete_Relations")]
+    partial class Complete_Relations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,10 +31,18 @@ namespace Hospital_Management_System.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("HospitalId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Hospitalsid")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
+
+                    b.HasIndex("Hospitalsid");
 
                     b.ToTable("Departments");
                 });
@@ -45,10 +53,18 @@ namespace Hospital_Management_System.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("info")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
+
+                    b.HasIndex("PatientId");
 
                     b.ToTable("Diagnoses");
                 });
@@ -81,6 +97,9 @@ namespace Hospital_Management_System.Data.Migrations
                     b.Property<string>("NormalRang")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("name")
                         .HasColumnType("nvarchar(max)");
 
@@ -88,6 +107,8 @@ namespace Hospital_Management_System.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
+
+                    b.HasIndex("PatientId");
 
                     b.ToTable("Laboratores");
                 });
@@ -107,6 +128,9 @@ namespace Hospital_Management_System.Data.Migrations
                     b.Property<DateTime>("Discharge")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DoctorId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
@@ -119,12 +143,49 @@ namespace Hospital_Management_System.Data.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("age")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("id");
 
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("RoomId");
+
                     b.ToTable("Patients");
+                });
+
+            modelBuilder.Entity("Hospital_Management_System.Domain.Patient_Nurse", b =>
+                {
+                    b.Property<string>("NurseId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("NurseId", "PatientId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Patient_Nurse");
+                });
+
+            modelBuilder.Entity("Hospital_Management_System.Domain.Patient_Pharmacy", b =>
+                {
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PharmacyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("PatientId", "PharmacyId");
+
+                    b.HasIndex("PharmacyId");
+
+                    b.ToTable("Patient_Pharmacy");
                 });
 
             modelBuilder.Entity("Hospital_Management_System.Domain.Pharmacy", b =>
@@ -152,6 +213,9 @@ namespace Hospital_Management_System.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("HospitalId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
@@ -159,6 +223,8 @@ namespace Hospital_Management_System.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HospitalId");
 
                     b.ToTable("Rooms");
                 });
@@ -401,6 +467,11 @@ namespace Hospital_Management_System.Data.Migrations
                     b.Property<string>("Specialization")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("departmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasIndex("departmentId");
+
                     b.HasDiscriminator().HasValue("Doctor");
                 });
 
@@ -433,6 +504,95 @@ namespace Hospital_Management_System.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Nurse");
+                });
+
+            modelBuilder.Entity("Hospital_Management_System.Domain.Department", b =>
+                {
+                    b.HasOne("Hospital_Management_System.Domain.Hospital", "Hospitals")
+                        .WithMany("Departments")
+                        .HasForeignKey("Hospitalsid");
+
+                    b.Navigation("Hospitals");
+                });
+
+            modelBuilder.Entity("Hospital_Management_System.Domain.Diagnoses", b =>
+                {
+                    b.HasOne("Hospital_Management_System.Domain.Patient", "Patients")
+                        .WithMany("Diagnoses")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patients");
+                });
+
+            modelBuilder.Entity("Hospital_Management_System.Domain.Laboratory", b =>
+                {
+                    b.HasOne("Hospital_Management_System.Domain.Patient", "Patients")
+                        .WithMany("Laboratory")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patients");
+                });
+
+            modelBuilder.Entity("Hospital_Management_System.Domain.Patient", b =>
+                {
+                    b.HasOne("Hospital_Management_System.Domain.Doctor", "Doctors")
+                        .WithMany("Patients")
+                        .HasForeignKey("DoctorId");
+
+                    b.HasOne("Hospital_Management_System.Domain.Room", "Rooms")
+                        .WithMany("Patients")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctors");
+
+                    b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("Hospital_Management_System.Domain.Patient_Nurse", b =>
+                {
+                    b.HasOne("Hospital_Management_System.Domain.Nurse", null)
+                        .WithMany()
+                        .HasForeignKey("NurseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hospital_Management_System.Domain.Patient", null)
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Hospital_Management_System.Domain.Patient_Pharmacy", b =>
+                {
+                    b.HasOne("Hospital_Management_System.Domain.Patient", null)
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hospital_Management_System.Domain.Pharmacy", null)
+                        .WithMany()
+                        .HasForeignKey("PharmacyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Hospital_Management_System.Domain.Room", b =>
+                {
+                    b.HasOne("Hospital_Management_System.Domain.Hospital", "Hospitals")
+                        .WithMany("Rooms")
+                        .HasForeignKey("HospitalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hospitals");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -484,6 +644,46 @@ namespace Hospital_Management_System.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Hospital_Management_System.Domain.Doctor", b =>
+                {
+                    b.HasOne("Hospital_Management_System.Domain.Department", "Departments")
+                        .WithMany("Doctors")
+                        .HasForeignKey("departmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Departments");
+                });
+
+            modelBuilder.Entity("Hospital_Management_System.Domain.Department", b =>
+                {
+                    b.Navigation("Doctors");
+                });
+
+            modelBuilder.Entity("Hospital_Management_System.Domain.Hospital", b =>
+                {
+                    b.Navigation("Departments");
+
+                    b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("Hospital_Management_System.Domain.Patient", b =>
+                {
+                    b.Navigation("Diagnoses");
+
+                    b.Navigation("Laboratory");
+                });
+
+            modelBuilder.Entity("Hospital_Management_System.Domain.Room", b =>
+                {
+                    b.Navigation("Patients");
+                });
+
+            modelBuilder.Entity("Hospital_Management_System.Domain.Doctor", b =>
+                {
+                    b.Navigation("Patients");
                 });
 #pragma warning restore 612, 618
         }
