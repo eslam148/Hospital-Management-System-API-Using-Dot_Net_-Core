@@ -1,4 +1,5 @@
-﻿using Hospital_Management_System.Domain;
+﻿using AutoMapper;
+using Hospital_Management_System.Domain;
 using Hospital_Management_System.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,12 +10,25 @@ namespace Hospital_Management_System.API.Controllers
     [ApiController]
     public class PatientController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly IUnitOfWork unitOfWork;
-        public PatientController(IUnitOfWork unitOfWork)
+        public PatientController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
-        // GET: api/<PatientController>
+        [Route("InserPatient")]
+        [HttpPost]
+        public IActionResult InserPatient(PatientModel patientmodel)
+        {
+            var patien = _mapper.Map<Patient>(patientmodel);
+             unitOfWork.Patient.Add(patien);
+            if (unitOfWork.Save() == 1)
+            {
+                return Created();
+            }
+            return BadRequest();
+        }
         [Route("GetAdultPersons")]
         [HttpGet]
         public IEnumerable<Patient> GetAdultPersons()

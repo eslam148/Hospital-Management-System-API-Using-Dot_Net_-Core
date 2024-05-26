@@ -11,13 +11,17 @@ namespace Hospital_Management_System.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddAutoMapper(typeof(Program));
 
             // Add services to the container.
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DBKey"));
+                options.UseLazyLoadingProxies()
+                .UseSqlServer(builder.Configuration.GetConnectionString("DBKey"));
             });
             builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+            //builder.Services.AddTransient<DBInitializer>();
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

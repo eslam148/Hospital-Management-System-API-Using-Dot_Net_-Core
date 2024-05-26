@@ -1,4 +1,5 @@
 ﻿using Hospital_Management_System.Domain;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -76,6 +77,11 @@ namespace Hospital_Management_System.Data
                .HasMany(e => e.Nurse)
                .WithMany(e => e.Patient)
                .UsingEntity<Patient_Nurse>();
+            modelBuilder.Entity<IdentityRole>().HasData(
+              new IdentityRole { Name = "Receptionist", NormalizedName = "RECEPTIONIST" },
+              new IdentityRole { Name = "Doctor", NormalizedName = "DOCTOR" },
+              new IdentityRole { Name = "Nurse", NormalizedName = "NURSE" }
+            );
             base.OnModelCreating(modelBuilder);
         }
 
