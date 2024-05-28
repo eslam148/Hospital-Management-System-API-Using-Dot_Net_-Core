@@ -29,7 +29,7 @@ namespace Hospital_Management_System.Data
         }
         public IEnumerable<T> GetAll()
         {
-            return context.Set<T>().ToList();
+            return [.. context.Set<T>()];
         }
         public T GetById(dynamic id)
         {

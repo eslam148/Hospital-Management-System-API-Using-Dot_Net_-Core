@@ -12,6 +12,17 @@ namespace Hospital_Management_System.Domain.Interfaces
         {
             get;
         }
+        IHospitalRepository Hospital
+        {
+            get;
+        }
+        IDepartmentRepository Department
+        {
+            get;
+        }
+        ILaboratoryRepository Laboratory { get; }
+        IDoctorRepository Doctor { get; }
+
         int Save();
     }
 }

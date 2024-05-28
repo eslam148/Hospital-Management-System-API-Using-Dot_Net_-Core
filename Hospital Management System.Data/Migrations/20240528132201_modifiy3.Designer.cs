@@ -4,6 +4,7 @@ using Hospital_Management_System.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hospital_Management_System.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240528132201_modifiy3")]
+    partial class modifiy3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -255,19 +258,19 @@ namespace Hospital_Management_System.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c79cc848-0bb7-495f-8924-8d2c5bcfdc34",
+                            Id = "b6c6eff9-c110-45dc-a7bf-f476960be6c8",
                             Name = "Receptionist",
                             NormalizedName = "RECEPTIONIST"
                         },
                         new
                         {
-                            Id = "4308670d-64f6-4134-8fb0-95a598c6beea",
+                            Id = "efdee878-4f17-4165-8161-a78d274bc851",
                             Name = "Doctor",
                             NormalizedName = "DOCTOR"
                         },
                         new
                         {
-                            Id = "8b68d653-9c47-41c8-bc13-8b3e72adbc1d",
+                            Id = "6206e8c4-10ad-4ab6-9e68-95fb8ca8f0fd",
                             Name = "Nurse",
                             NormalizedName = "NURSE"
                         });

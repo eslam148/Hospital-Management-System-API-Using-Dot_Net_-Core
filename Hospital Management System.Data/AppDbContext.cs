@@ -49,7 +49,8 @@ namespace Hospital_Management_System.Data
             //One to Many Hospital to Departments
             modelBuilder.Entity<Hospital>()
                 .HasMany(d => d.Departments)
-                .WithOne(d => d.Hospitals);
+                .WithOne(d => d.Hospitals)
+                .HasForeignKey(d=>d.HospitalId);
 
             //One to Many Hospital to Departments
             modelBuilder.Entity<Room>()

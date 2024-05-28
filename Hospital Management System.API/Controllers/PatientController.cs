@@ -74,9 +74,11 @@ namespace Hospital_Management_System.API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Patient> Get()
+        public IActionResult Get()
         {
-            return unitOfWork.Patient.GetAll();
+          var patients =  unitOfWork.Patient.GetAll();
+          var result = _mapper.Map<IEnumerable<PatientModel>>(patients);
+          return Ok(result);
         }
 
         [Route("GetById")]

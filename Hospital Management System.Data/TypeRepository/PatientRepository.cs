@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hospital_Management_System.Data.TypeReposittory
+namespace Hospital_Management_System.Data.TypeRepository
 {
     public class PatientRepository : GenericRepository<Patient>, IPatientRepository
     {

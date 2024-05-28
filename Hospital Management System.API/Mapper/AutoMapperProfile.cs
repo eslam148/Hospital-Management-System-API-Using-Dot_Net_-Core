@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Hospital_Management_System.API.Models;
 using Hospital_Management_System.Domain;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,6 @@ namespace Hospital_Management_System.API.Mapper
             .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone))
             .ForMember(dest => dest.AdmitDate, opt => opt.MapFrom(src => src.AdmitDate));
          
-           
-
-
 
             CreateMap<PatientModel, Patient>()
            .ForMember(dest => dest.id, opt => opt.Ignore())
@@ -38,8 +36,17 @@ namespace Hospital_Management_System.API.Mapper
            .ForMember(dest => dest.DoctorId, opt => opt.Ignore())
            .ForMember(dest => dest.RoomId, opt => opt.Ignore());
 
-            //CreateMap<PatientModel, Patient>();
+            CreateMap<Hospital, HospitalModel>();
+            CreateMap<HospitalModel, Hospital>()
+                .ForMember(dest => dest.id, opt => opt.Ignore()); ;
 
+            CreateMap<Department, DepartmentModel>();
+            CreateMap<DepartmentModel, Department>()
+                .ForMember(dest => dest.id, opt => opt.Ignore()); ;
+
+            CreateMap<Laboratory, LabModel>();
+            CreateMap<LabModel, Laboratory>()
+                .ForMember(dest => dest.id, opt => opt.Ignore()); ;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Hospital_Management_System.Domain
         public Guid id { get; set; }
         public string Name { get; set; }
 
-        public string HospitalId { get; set; }
+        public int HospitalId { get; set; }
 
         public virtual Hospital Hospitals { get; set; }
         public virtual ICollection<Doctor> Doctors { get; set; }
