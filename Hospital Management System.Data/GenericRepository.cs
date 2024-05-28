@@ -31,7 +31,7 @@ namespace Hospital_Management_System.Data
         {
             return context.Set<T>().ToList();
         }
-        public T GetById(string id)
+        public T GetById(dynamic id)
         {
             return context.Set<T>().Find(id);
         }
@@ -42,6 +42,11 @@ namespace Hospital_Management_System.Data
         public void RemoveRange(IEnumerable<T> entities)
         {
             context.Set<T>().RemoveRange(entities);
+        }
+
+        public void update(T entity)
+        {
+            context.Set<T>().Update(entity);
         }
     }
 }

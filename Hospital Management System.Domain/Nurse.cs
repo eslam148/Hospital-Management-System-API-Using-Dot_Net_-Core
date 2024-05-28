@@ -8,7 +8,7 @@ namespace Hospital_Management_System.Domain
 {
     public class Nurse: Employee
     {
-        public ICollection<Patient> Patient { get; set; }
+        public virtual ICollection<Patient> Patient { get; set; }
 
     }
 }

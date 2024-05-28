@@ -29,24 +29,65 @@ namespace Hospital_Management_System.API.Controllers
             }
             return BadRequest();
         }
+
+        [Route("UpdatePatient")]
+        [HttpPut]
+        public IActionResult UpdatePatient(Guid Id,PatientModel patientmodel)
+        {
+            var patien = _mapper.Map<Patient>(patientmodel);
+            patien.id = Id;
+            unitOfWork.Patient.update(patien);
+            if (unitOfWork.Save() == 1)
+            {
+                return Ok();
+            }
+            return BadRequest();
+        }
+
+        [Route("DeletePatient")]
+        [HttpDelete]
+        public IActionResult DeletePatient(Guid Id)
+        {
+           var patient =  unitOfWork.Patient.Find(p=>p.id == Id).FirstOrDefault();
+            if(patient != null)
+            {
+                unitOfWork.Patient.Remove(patient);
+                if(unitOfWork.Save() == 1)
+                {
+                    return Ok();
+                }
+                return BadRequest();
+
+            }
+            else
+            {
+                return NotFound();
+            }
+            
+        }
+
         [Route("GetAdultPersons")]
         [HttpGet]
         public IEnumerable<Patient> GetAdultPersons()
         {
             return unitOfWork.Patient.GetAdultPatients();
         }
+
         [HttpGet]
         public IEnumerable<Patient> Get()
         {
             return unitOfWork.Patient.GetAll();
         }
 
-        [HttpPost]
-        public int  Post(Patient item)
+        [Route("GetById")]
+        [HttpGet]
+        public  string GetById(Guid Id)
         {
-            unitOfWork.Patient.Add(item);
-           return unitOfWork.Save();
+
+            return  Id.GetType().Name;
         }
+
+
 
     }
 }

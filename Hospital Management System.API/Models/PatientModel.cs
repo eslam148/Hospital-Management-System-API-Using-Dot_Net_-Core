@@ -1,10 +1,10 @@
 ﻿using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace Hospital_Management_System.Domain
+namespace Hospital_Management_System.API
 {
     public class PatientModel
     {
-        public string id { get; set; }
+        public Guid? id { get; set; } = Guid.Empty;
         public string Name { get; set; }
         public string Address  { get; set; }
         public string Phone { get; set; }
@@ -14,8 +14,7 @@ namespace Hospital_Management_System.Domain
         public DateTime Discharge { get; set; }
         public string PatientType { get; set; }
 
-        public string DoctorId { get; set; }
-        public int RoomId { get; set; }
+     
 
     }
 }

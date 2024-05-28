@@ -14,7 +14,7 @@ namespace Hospital_Management_System.Domain
         public string result { get; set; }
 
         public Guid PatientId { get; set; }
-        public Patient Patients { get; set; }
+        public virtual Patient Patients { get; set; }
 
     }
 }

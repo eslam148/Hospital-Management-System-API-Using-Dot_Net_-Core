@@ -4,6 +4,7 @@ using Hospital_Management_System.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hospital_Management_System.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240528121451_modifiy")]
+    partial class modifiy
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,7 +146,7 @@ namespace Hospital_Management_System.Data.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RoomId")
+                    b.Property<int>("RoomId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("age")
@@ -258,19 +261,19 @@ namespace Hospital_Management_System.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1f031cee-760b-4c7a-947d-ec7ceb4e14a5",
+                            Id = "85f18674-5f89-4652-a394-fbc29ee56fef",
                             Name = "Receptionist",
                             NormalizedName = "RECEPTIONIST"
                         },
                         new
                         {
-                            Id = "03b8930c-0e7d-49e1-8881-9a2d8c408720",
+                            Id = "2a0790ad-17f0-47b1-8186-f7f2590e84d5",
                             Name = "Doctor",
                             NormalizedName = "DOCTOR"
                         },
                         new
                         {
-                            Id = "373aace4-f0d4-4854-aa74-f9abe93c0a7f",
+                            Id = "95b649e8-5e5b-41b7-a1e9-404fd752c278",
                             Name = "Nurse",
                             NormalizedName = "NURSE"
                         });
@@ -565,7 +568,9 @@ namespace Hospital_Management_System.Data.Migrations
 
                     b.HasOne("Hospital_Management_System.Domain.Room", "Rooms")
                         .WithMany("Patients")
-                        .HasForeignKey("RoomId");
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Doctors");
 

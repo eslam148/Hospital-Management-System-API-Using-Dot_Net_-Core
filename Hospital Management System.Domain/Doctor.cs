@@ -12,8 +12,8 @@ namespace Hospital_Management_System.Domain
        public Guid departmentId{ get; set; }
 
 
-       public Department Departments { get; set; }
-       public ICollection<Patient> Patients { get; set; }
+       public virtual Department Departments { get; set; }
+       public virtual ICollection<Patient> Patients { get; set; }
 
     }
 }

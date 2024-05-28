@@ -12,6 +12,6 @@ namespace Hospital_Management_System.Domain
         public string Name { get; set; }
         public decimal Amount { get; set; }
 
-        public ICollection<Patient> Patient { get; set; }
+        public virtual ICollection<Patient> Patient { get; set; }
     }
 }

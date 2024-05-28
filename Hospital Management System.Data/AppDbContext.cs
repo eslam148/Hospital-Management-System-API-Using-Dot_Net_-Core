@@ -17,17 +17,17 @@ namespace Hospital_Management_System.Data
         {
             
         }
-        public DbSet<Patient> Patients { get; set; }
-        public DbSet<Doctor> Doctors { get; set; }
-        public DbSet<Nurse> Nurses { get; set; }
-        public DbSet<Room> Rooms { get; set; }
-        public DbSet<Laboratory> Laboratores { get; set; }
-        public DbSet<Pharmacy> Pharmaces { get; set; }
-        public DbSet<Department> Departments { get; set; }
-        public DbSet<Hospital> Hospitals { get; set; }
-        public DbSet<Diagnoses> Diagnoses { get; set; }
-        public DbSet<Patient_Pharmacy> Patient_Pharmacy { get; set; }
-        public DbSet<Patient_Nurse> Patient_Nurse { get; set; }
+        public virtual DbSet<Patient> Patients { get; set; }
+        public virtual DbSet<Doctor> Doctors { get; set; }
+        public virtual DbSet<Nurse> Nurses { get; set; }
+        public virtual DbSet<Room> Rooms { get; set; }
+        public virtual DbSet<Laboratory> Laboratores { get; set; }
+        public virtual DbSet<Pharmacy> Pharmaces { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
+        public virtual DbSet<Hospital> Hospitals { get; set; }
+        public virtual DbSet<Diagnoses> Diagnoses { get; set; }
+        public virtual DbSet<Patient_Pharmacy> Patient_Pharmacy { get; set; }
+        public virtual DbSet<Patient_Nurse> Patient_Nurse { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //One to Many Patient to Diagnoses

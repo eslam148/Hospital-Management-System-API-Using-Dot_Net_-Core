@@ -13,7 +13,7 @@ namespace Hospital_Management_System.Domain
 
         public string HospitalId { get; set; }
 
-        public Hospital Hospitals { get; set; }
-        public ICollection<Doctor> Doctors { get; set; }
+        public virtual Hospital Hospitals { get; set; }
+        public virtual ICollection<Doctor> Doctors { get; set; }
     }
 }
