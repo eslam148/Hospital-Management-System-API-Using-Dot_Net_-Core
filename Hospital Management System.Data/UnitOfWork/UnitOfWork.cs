@@ -17,6 +17,9 @@ namespace Hospital_Management_System.Data.UnitOfWork
         Department = new DepartmentRepository(this.context);
         Laboratory = new LaboratoryRepository(this.context);
         Doctor = new DoctorRepository(this.context);
+        Pharmacy = new PharmacyRepository(this.context);
+        Doiagnoses = new DiagnosesRepository(this.context);
+
 
         }
     public IPatientRepository Patient {
@@ -32,8 +35,9 @@ namespace Hospital_Management_System.Data.UnitOfWork
 
     public ILaboratoryRepository Laboratory { get; private set; }
     public IDoctorRepository Doctor { get; private set; }
-
-
+    public IPharmacyRepository Pharmacy { get; private set; }
+    public IDiagnosesRepository Doiagnoses { get; private set; }
+ 
         public void Dispose() {
         context.Dispose();
     }

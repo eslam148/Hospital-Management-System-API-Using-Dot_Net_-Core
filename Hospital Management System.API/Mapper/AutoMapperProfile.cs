@@ -38,15 +38,24 @@ namespace Hospital_Management_System.API.Mapper
 
             CreateMap<Hospital, HospitalModel>();
             CreateMap<HospitalModel, Hospital>()
-                .ForMember(dest => dest.id, opt => opt.Ignore()); ;
+                .ForMember(dest => dest.id, opt => opt.Ignore());
 
             CreateMap<Department, DepartmentModel>();
             CreateMap<DepartmentModel, Department>()
-                .ForMember(dest => dest.id, opt => opt.Ignore()); ;
+                .ForMember(dest => dest.id, opt => opt.Ignore());
 
             CreateMap<Laboratory, LabModel>();
             CreateMap<LabModel, Laboratory>()
-                .ForMember(dest => dest.id, opt => opt.Ignore()); ;
+                .ForMember(dest => dest.id, opt => opt.Ignore());
+
+
+            CreateMap<Pharmacy, PharmacyModel>();
+            CreateMap<PharmacyModel, Pharmacy>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+            CreateMap<Diagnoses, DiagnosesModel>();
+            CreateMap<DiagnosesModel, Diagnoses>()
+                .ForMember(dest => dest.id, opt => opt.Ignore());
         }
     }
 }

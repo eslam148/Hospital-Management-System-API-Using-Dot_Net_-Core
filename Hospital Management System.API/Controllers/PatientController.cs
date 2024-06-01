@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Hospital_Management_System.API.Models;
 using Hospital_Management_System.Domain;
 using Hospital_Management_System.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -90,6 +91,26 @@ namespace Hospital_Management_System.API.Controllers
         }
 
 
+        [Route("InserPatientDiagnoses")]
+        [HttpPost]
+        public IActionResult InserPatientDiagnoses(DiagnosesModel diagnosesmodel)
+        {
+            var diagnoses = _mapper.Map<Diagnoses>(diagnosesmodel);
+            unitOfWork.Doiagnoses.Add(diagnoses);
+            if (unitOfWork.Save() == 1)
+            {
+                return Created();
+            }
+            return BadRequest();
+        }
 
+
+        [Route("GetPatientDiagnoses")]
+        [HttpGet]
+        public IActionResult GetPatientDiagnoses(Guid PatientId)
+        {
+            var result = _mapper.Map<List<DiagnosesModel>>(unitOfWork.Doiagnoses.Find(x=>x.PatientId == PatientId).ToList());
+            return Ok(result);
+        }
     }
 }
