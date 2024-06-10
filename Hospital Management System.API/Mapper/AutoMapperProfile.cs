@@ -56,6 +56,13 @@ namespace Hospital_Management_System.API.Mapper
             CreateMap<Diagnoses, DiagnosesModel>();
             CreateMap<DiagnosesModel, Diagnoses>()
                 .ForMember(dest => dest.id, opt => opt.Ignore());
+
+            CreateMap<Patient_Pharmacy, Patient_PharmacyModel>();
+            CreateMap<Patient_PharmacyModel, Patient_Pharmacy>();
+
+            CreateMap<Room, RoomModel>();
+            CreateMap<RoomModel, Room>()
+                .ForMember(dest=>dest.Id,opt=>opt.Ignore());
         }
     }
 }

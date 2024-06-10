@@ -24,6 +24,9 @@ namespace Hospital_Management_System.Domain.Interfaces
         IDoctorRepository Doctor { get; }
         IPharmacyRepository Pharmacy { get; }
         IDiagnosesRepository Doiagnoses { get; }
+        IPatient_PharmacyRepository Patient_Pharmacy { get; }
+        IRoomRepository Room { get; }
+
 
         int Save();
     }
